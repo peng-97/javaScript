@@ -1,5 +1,5 @@
 
-let arr=[1,2,3];
+let arr=[{name:"zhangsan",age:20},{name:"lisi",age:25},{name:"wanger",age:23}];
 Array.prototype.ForEach=function (callback){
     for (let i = 0; i < this.length; i++) {
          callback(this[i],i,this)
@@ -34,3 +34,22 @@ Array.prototype.Exists=function (prefunc){
     }
     return flag;
 }
+
+Array.prototype.Sort=function (prefunc){
+    if (this.length==0){
+        return this;
+    }
+    for (var i = 0; i < this.length - 1; i++) {
+        for (var j = 0; j <this.length - i - 1; j++) {
+            let sort=(prefunc && typeof(prefunc)=="function") ? prefunc(this[j],this[j+1])>0 :this[j]>this[j+1]
+            if (sort){
+                var temp = this[j];
+                this[j] = this[j + 1];
+                this[j + 1] = temp
+            }
+        }
+    }
+}
+
+// arr.Sort((a,b)=>{return a.age-b.age})
+// console.log(arr)
